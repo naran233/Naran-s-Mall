@@ -1,0 +1,62 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: mall
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:mall}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    # 默认值仅用于本机演示库；部署前必须通过 DB_PASSWORD 覆盖，见 .env.example
+    password: ${DB_PASSWORD:123456}
+    hikari:
+      pool-name: MallHikariPool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 3000ms
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.mall.mbg.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleteStatus
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+jwt:
+  # 生产必须通过 JWT_SECRET 注入 >=32 字节随机密钥；下方占位值仅供本地演示，禁止用于线上
+  secret: ${JWT_SECRET:dev-only-insecure-placeholder-change-me}
+  expiration: 86400          # admin token seconds (24h)
+  member-expiration: 86400   # member token seconds (24h)
+  header: Authorization
+  token-prefix: "Bearer "
+
+# 种子数据（多品类商品 / 会员 / 各状态订单），首次启动自动写入，见 db/seed_data.sql
+mall:
+  seed:
+    enabled: true
+
+logging:
+  level:
+    com.mall: debug

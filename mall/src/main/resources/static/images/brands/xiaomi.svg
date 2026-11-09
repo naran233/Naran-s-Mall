@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="120" viewBox="0 0 240 120">
+  <rect width="240" height="120" rx="16" fill="#ffffff"/>
+  <rect x="24" y="30" width="60" height="60" rx="14" fill="#ff6900"/>
+  <text x="54" y="74" font-family="Helvetica,Arial,sans-serif" font-size="34" font-weight="700"
+        fill="#ffffff" text-anchor="middle">MI</text>
+  <text x="150" y="74" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700"
+        fill="#ff6900" text-anchor="middle">小米</text>
+</svg>
